@@ -1085,3 +1085,326 @@ obj.toString()  // 返回 Thu Jul 17 2014 15:38:19 GMT+0200 (W. Europe Daylight 
 
 
 
+**将字符串转换为数字：**
+
+- 全局方法 **Number()** 可以将字符串转换为数字。
+
+- 字符串包含数字(如 "3.14") 转换为数字 (如 3.14).
+
+- 空字符串转换为 0。
+
+- 其他的字符串会转换为 NaN (不是个数字)。
+
+```javascript
+Number("3.14")  // 返回 3.14
+Number(" ")    // 返回 0
+Number("")    // 返回 0
+Number("99 88")  // 返回 NaN
+```
+
+
+
+**一元运算符 +：**
+
+**Operator +** 可用于将变量转换为数字：
+
+```javascript
+var y = "5";      // y 是一个字符串
+var x = + y;      // x 是一个数字
+
+//如果变量不能转换，它仍然会是一个数字，但值为 NaN (不是一个数字):
+var y = "John";   // y 是一个字符串
+var x = + y;      // x 是一个数字 (NaN)
+```
+
+
+
+**将布尔值转换为数字:**
+
+全局方法 **Number()** 可将布尔值转换为数字。
+
+```javascript
+Number(false)     // 返回 0
+Number(true)      // 返回 1
+```
+
+
+
+**将日期转换为数字:**
+
+```javascript
+//全局方法 Number() 可将日期转换为数字。
+d = new Date();
+Number(d)          // 返回 1404568027739
+
+//日期方法 getTime() 也有相同的效果。
+d = new Date();
+d.getTime()        // 返回 1404568027739
+```
+
+
+
+**自动转换类型：**
+
+当 JavaScript 尝试操作一个 "错误" 的数据类型时，会自动转换为 "正确" 的数据类型。
+
+以下输出结果不是你所期望的：
+
+```javascript
+5 + null    // 返回 5         null 转换为 0
+"5" + null  // 返回"5null"   null 转换为 "null"
+"5" + 1     // 返回 "51"      1 转换为 "1" 
+"5" - 1     // 返回 4         "5" 转换为 5
+```
+
+
+
+**自动转换为字符串：**
+
+```javascript
+//当你尝试输出一个对象或一个变量时 JavaScript 会自动调用变量的 toString() 方法：
+document.getElementById("demo").innerHTML = myVar;
+myVar = {name:"Fjohn"}  // toString 转换为 "[object Object]"
+myVar = [1,2,3,4]       // toString 转换为 "1,2,3,4"
+myVar = new Date()      // toString 转换为 "Fri Jul 18 2014 09:08:55 GMT+0200"
+
+//数字和布尔值也经常相互转换：
+myVar = 123             // toString 转换为 "123"
+myVar = true            // toString 转换为 "true"
+myVar = false           // toString 转换为 "false"
+```
+
+
+
+### 11 JavaScript正则表达式
+
+正则表达式（Regular Expression，简写regex, regexp, RE），使用单个字符串来描述、匹配一系列符合摸个句法规则的字符串搜索模式。可用于文本搜索和文本替换。
+
+- 正则表达式是由一个字符序列形成的搜索模式。
+- 在文本中搜索数据时，可以用搜索模式来说描述需要查询的内容。
+- 正则表达式可以是一个简单的字符，或一个更负责的模式。
+- 正则表达式可用于所有文本搜索和文本替换的操作。
+
+
+
+**语法：**/正则表达式主体/修饰符(可选)
+
+```javascript
+var patt=/runoob/i
+```
+
+实例解析：
+
+/runoob/i 是一个正则表达式
+
+runoob 是一个正则表达式主体（用于检索）
+
+i 是一个修饰符（表明搜索不区分大小写）
+
+
+
+在JavaScript中，正则表达式通常用于两个字符串方法:search()和replace();
+
+**search()方法 **用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。
+
+**replace()方法** 用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+
+```javascript
+//search() 方法使用正则表达式：
+var str = "Visit Runoob!"; 
+var n = str.search(/Runoob/i); //n=6
+
+var str = "VisitRunoob!"; 
+var n = str.search(/runoob/i); //n=5
+
+//search() 方法使用字符串
+//search 方法可使用字符串作为参数。字符串参数会转换为正则表达式
+var str = "Visit Runoob!"; 
+var n = str.search("Runoob");
+```
+
+```javascript
+//replace() 方法使用正则表达式
+//使用正则表达式且不区分大小写将字符串中的 Microsoft 替换为 Runoob :
+var str = document.getElementById("demo").innerHTML; 
+var txt = str.replace(/microsoft/i,"Runoob");
+
+//replace() 方法使用字符串
+//replace() 方法将接收字符串作为参数：
+var str = document.getElementById("demo").innerHTML; 
+var txt = str.replace("Microsoft","Runoob");
+```
+
+
+
+**正则表达式修饰符**
+
+| 修饰符 | 描述                                                   |
+| ------ | ------------------------------------------------------ |
+| i      | 执行对大小写不敏感的匹配                               |
+| g      | 执行全局匹配（查找所有匹配而非在找到第一个匹配后停止） |
+| m      | 执行多行匹配                                           |
+
+
+
+**正则表达式模式**
+
+方括号用于查找某个范围内的字符：
+
+| 表达式 | 描述                 |
+| ------ | -------------------- |
+| [abc]  | 查找方括号之间的字符 |
+| [0-9]  | 查找任何从0到9的数字 |
+| (x\|y) | 查找任何以\|的选项   |
+
+
+
+**元字符是拥有特殊含义的字符**
+
+| 元字符 | 描述                                  |
+| ------ | ------------------------------------- |
+| \b     | 查找数字                              |
+| \s     | 查找空白字符                          |
+| \b     | 匹配单词边界                          |
+| \uxxxx | 查找以十六进制数xxxx规定的Unicode字符 |
+
+
+
+**量词**
+
+| 量词 | 描述                            |
+| ---- | ------------------------------- |
+| n+   | 匹配任何包含至少一个n的字符     |
+| n*   | 匹配任何包含零个或多个n的字符串 |
+| n?   | 匹配任何包含零个或一个n的字符串 |
+
+
+
+**使用RegExp对象：**
+
+在JavaScript中，RegExp对象是一个预定了属性和方法的正则表达式对象。
+
+
+
+**使用test()**
+
+test() 方法是一个正则表达式方法。
+
+test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。
+
+以下实例用于搜索字符串中的字符 "e"：
+
+```javascript
+var patt = /e/;
+patt.test("The best things in life are free!");   //返回true
+
+//将两行代码合并成一行
+/e/.test("The best things in life are free!")
+```
+
+
+
+**使用exec()**
+
+exec() 方法是一个正则表达式方法。
+
+exec() 方法用于检索字符串中的正则表达式的匹配。
+
+该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null。
+
+以下实例用于搜索字符串中的字母 "e":
+
+```javascript
+/e/.exec("The best things in life are free!");  //字符串中含有e，返回e
+```
+
+**完整的 RegExp 对象参考手册，请参考 [JavaScript RegExp 参考手册](https://www.runoob.com/jsref/jsref-obj-regexp.html)。**
+
+
+
+### 12 JavaScript 异常处理
+
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<p>不管输入是否正确，输入框都会再输入后清空。</p>
+<p>请输入 5 ~ 10 之间的数字：</p>
+
+<input id="demo" type="text">
+<button type="button" onclick="myFunction()">点我</button>
+
+<p id="p01"></p>
+
+<script>
+function myFunction() {
+  var message, x;
+  message = document.getElementById("p01");
+  message.innerHTML = "";
+  x = document.getElementById("demo").value;
+  try { 
+    if(x == "") throw "值是空的";
+    if(isNaN(x)) throw "值不是一个数字";
+    x = Number(x);
+    if(x > 10) throw "太大";
+    if(x < 5) throw "太小";
+  }
+  catch(err) {
+    message.innerHTML = "错误: " + err + ".";
+  }
+  finally {
+    document.getElementById("demo").value = "";
+  }
+}
+</script>
+</body>
+</html>
+```
+
+
+
+### 13 JavaScript严格模式(use strict)
+
+JavaScript严格模式（strict mode）即在严格的条件下运行。
+
+**使用"use strict"指令：**
+
+"use strict" 的目的是指定代码在严格条件下执行。严格模式下不能使用为声明的变量。·
+
+**严格模式声明：**
+
+严格模式通过在脚本或函数的头部添加`user strict;`表达式来声明。
+
+```javascript
+<script>
+x = 3.14;       // 不报错 
+myFunction();
+function myFunction() {
+   "use strict";
+    y = 3.14;   // 报错 (y 未定义)
+}
+</script>
+```
+
+**使用严格模式的原因：**
+
+1. 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
+
+   + 消除代码运行的一些不安全之处，保证代码运行的安全；
+
+   - 提高编译器效率，增加运行速度；
+
+   - 为未来新版本的Javascript做好铺垫。
+
+2. "严格模式"体现了Javascript更合理、更安全、更严谨的发展方向。
+
+3. 另一方面，同样的代码，在"严格模式"中，可能会有不一样的运行结果；一些在"正常模式"下可以运行的语句，在"严格模式"下将不能运行。
+
+
+
+**[严格模式的限制](https://www.runoob.com/js/js-strict.html)**
+
